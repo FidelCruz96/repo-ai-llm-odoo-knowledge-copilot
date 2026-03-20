@@ -2,9 +2,9 @@
 ## Entregable 1 — Alcance, Requerimientos y Plan de Trabajo
 
 **Proyecto:** Asistente AI/LLM con RAG para soporte funcional y técnico de Odoo  
-**Autor:** Hector Fidel Cruz Rodriguez
-**Versión:** 1.0  
-**Fecha:** 2026-03-20
+**Autor:** Hector Fidel Cruz Rodriguez  
+**Versión:** 1.0 
+**Fecha:** 2026-03-20  
 
 ---
 
@@ -175,7 +175,9 @@ El proyecto será considerado exitoso si permite ingerir documentación seleccio
 | Semana 7 | Validación y cierre | Pruebas funcionales, ajuste de latencia, validación de respuestas y documentación final |
 
 ## 3.2 Cronograma Gantt con milestones y dependencias
-W
+
+### 3.2.1 Tabla de cronograma
+
 | ID | Actividad | Inicio | Fin | Dependencia | Milestone |
 |---|---|---|---|---|---|
 | T1 | Definir alcance y requerimientos | Sem 1 | Sem 1 | - | M1 |
@@ -185,6 +187,36 @@ W
 | T5 | Implementar consulta RAG | Sem 5 | Sem 5 | T4 | M4 |
 | T6 | Integrar seguridad y logging | Sem 6 | Sem 6 | T5 | M5 |
 | T7 | Ejecutar pruebas y documentar | Sem 7 | Sem 7 | T6 | M6 |
+
+### 3.2.2 Gantt visual (Mermaid)
+
+```mermaid
+gantt
+    title Cronograma del Proyecto — Odoo Knowledge Copilot
+    dateFormat  YYYY-MM-DD
+    axisFormat  %d-%m
+
+    section Capítulo 1
+    T1 Definir alcance y requerimientos     :done, t1, 2026-03-23, 7d
+    T2 Diseñar arquitectura inicial         :t2, after t1, 7d
+
+    section Capítulo 2
+    T3 Implementar API base                 :t3, after t2, 7d
+    T4 Implementar ingesta documental       :t4, after t3, 7d
+    T5 Implementar consulta RAG             :t5, after t4, 7d
+
+    section Capítulo 3
+    T6 Integrar seguridad y observabilidad  :t6, after t5, 7d
+    T7 Ejecutar pruebas y documentar        :t7, after t6, 7d
+
+    section Milestones
+    M1 Alcance aprobado                     :milestone, m1, 2026-03-30, 0d
+    M2 Diseño definido                      :milestone, m2, 2026-04-06, 0d
+    M3 Ingesta funcional                    :milestone, m3, 2026-04-20, 0d
+    M4 Consulta RAG operativa               :milestone, m4, 2026-04-27, 0d
+    M5 Seguridad y observabilidad listas    :milestone, m5, 2026-05-04, 0d
+    M6 Validación y documentación completas :milestone, m6, 2026-05-11, 0d
+```
 
 ### Milestones
 - **M1:** Alcance y requerimientos aprobados
