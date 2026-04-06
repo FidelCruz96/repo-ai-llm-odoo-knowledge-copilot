@@ -1,0 +1,24 @@
+flowchart LR
+    UI[Cliente HTTP / UI futura]
+    API[FastAPI API]
+    SEC[Middleware de Seguridad]
+    RAG[Servicio RAG]
+    ING[Servicio de Ingesta]
+    VS[(PostgreSQL + pgvector)]
+    FILES[(Repositorio Documental)]
+    LLM[OpenAI API]
+    OBS[Logs / Métricas]
+    REDIS[(Redis opcional)]
+
+    UI --> API
+    API --> SEC
+    SEC --> RAG
+    API --> ING
+    RAG --> VS
+    RAG --> LLM
+    ING --> FILES
+    ING --> VS
+    ING --> LLM
+    RAG --> OBS
+    ING --> OBS
+    SEC --> REDIS
