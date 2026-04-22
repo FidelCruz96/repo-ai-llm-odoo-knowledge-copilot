@@ -63,14 +63,14 @@ paths:
         "503":
           description: Proveedor LLM no disponible
 
-  /v1/documents:
+  /v1/ingest:
     post:
       summary: Ingesta documental
       security:
         - ApiKeyAuth: []
       responses:
-        "202":
-          description: Documento aceptado para procesamiento
+        "200":
+          description: Documento procesado
 
   /v1/feedback:
     post:

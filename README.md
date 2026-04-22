@@ -1,101 +1,102 @@
 # Odoo Knowledge Copilot
 
-Asistente AI/LLM con arquitectura RAG orientado a soporte funcional y técnico sobre Odoo.
+API RAG para consultas de documentación funcional y técnica de Odoo.
 
-## Descripción
+## Objetivo
+- Ingerir documentos (`PDF`, `MD`, `TXT`).
+- Indexarlos en PostgreSQL + pgvector.
+- Responder preguntas con fuentes citadas.
+- Medir latencia y trazabilidad mínima.
 
-Odoo Knowledge Copilot permite consultar documentación funcional, técnica y operativa de Odoo usando lenguaje natural. La solución utiliza un pipeline RAG para recuperar fragmentos relevantes desde un repositorio documental y generar respuestas fundamentadas con apoyo de un LLM.
+## Endpoints
+- `GET /v1/health`
+- `POST /v1/ingest`
+- `POST /v1/query`
 
-## Objetivo del proyecto
+## Arquitectura resumida
+- FastAPI (`app/`)
+- Embeddings + LLM: OpenAI (`text-embedding-3-large`, `gpt-4o-mini`)
+- Vector Store: PostgreSQL + pgvector
+- Redis opcional para soporte operativo
+- Docker Compose para entorno local
 
-Diseñar e implementar un MVP que permita:
+## Requisitos
+- Python 3.12
+- Docker + Docker Compose
+- (Opcional) `k6`, `bandit`, `pip-audit`, `gitleaks`, `ruff`, `mypy`
 
-- ingerir documentos técnicos y funcionales,
-- indexarlos semánticamente,
-- responder preguntas en lenguaje natural,
-- devolver referencias a las fuentes consultadas,
-- mantener trazabilidad, seguridad básica y arquitectura desplegable en contenedores.
+## Variables de entorno
+Base en [`.env.example`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/.env.example):
+- `OPENAI_API_KEY`
+- `API_KEY`
+- `DATABASE_URL`
+- `REDIS_URL`
+- `MODEL_NAME`
+- `EMBEDDING_MODEL`
+- `TOP_K`
+- `SIMILARITY_THRESHOLD`
+- `RATE_LIMIT_PER_MINUTE`
+- `MAX_UPLOAD_SIZE_MB`
 
-## Caso de uso principal
+## Ejecución local
+1. `make setup`
+2. `cp .env.example .env` y ajustar valores reales.
+3. `make up`
+4. Validar salud: `make health`
 
-Usuarios internos del ecosistema Odoo, como:
+## Ingesta de documentos
+- Cargar todos los sample docs:
+  - `make seed`
+- Cargar archivos específicos:
+  - `make ingest FILES='data/sample_docs/odoo_inventory_basics.md data/sample_docs/odoo_purchase_approvals.md' MODULE=inventory`
 
-- consultores funcionales,
-- desarrolladores,
-- soporte,
-- personal en onboarding técnico.
+## Consulta de ejemplo
+```bash
+curl -s -X POST http://localhost:8000/v1/query \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: $API_KEY" \
+  -d '{"query":"¿Qué es un picking en Odoo?","stream":false}'
+```
 
-Ejemplo de consulta:
+## Tests y cobertura
+- `make test`
+- `make coverage`
 
-> ¿Cómo se configura la aprobación de órdenes de compra en Odoo 18?
+Resultado actual:
+- `35 passed`
+- cobertura total `79%`
 
-## Arquitectura base
+## Evaluación y performance
+- RAGAS-style proxy:
+  - `make ragas`
+  - salida: `reports/ragas_report.json`
+- Load test k6:
+  - `make load-test`
+  - salida: `reports/load_test_report.json`
 
-La solución está compuesta por:
+## Seguridad
+- Escaneo consolidado:
+  - `make security`
+  - salida: `reports/security_scan.json`
 
-- FastAPI como capa de exposición de APIs,
-- LlamaIndex como orquestador del pipeline RAG,
-- PostgreSQL + pgvector como vector store,
-- OpenAI GPT-4o-mini como modelo base,
-- Redis opcional para rate limiting y caché,
-- Docker Compose para despliegue MVP.
+## CI/CD
+- CI: [`.github/workflows/ci.yml`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/.github/workflows/ci.yml)
+- Deploy: [`.github/workflows/deploy.yml`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/.github/workflows/deploy.yml)
 
-## Estructura documental
+## Deploy cloud
+- Script manual: [`scripts/deploy_cloud_run.sh`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/scripts/deploy_cloud_run.sh)
+- URL pública: `https://odoo-knowledge-copilot-376400137896.us-central1.run.app`
 
-- `docs/entregable-02/arquitectura.md`: documento principal del entregable 2
-- `docs/adr/`: decisiones arquitectónicas
-- `docs/api/openapi.yaml`: especificación inicial de la API
-- `docs/entregable-02/*.mmd`: diagramas Mermaid
-- `docs/entregable-02/system-prompt.md`: prompt base del sistema
-- `docs/entregable-02/amenazas-stride.md`: modelo de amenazas
+## Documentación final
+- [stack-decision.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/stack-decision.md)
+- [implementation.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/implementation.md)
+- [testing.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/testing.md)
+- [deployment.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/deployment.md)
+- [security.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/security.md)
+- [costs.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/costs.md)
+- [results.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/results.md)
 
-## Alcance del MVP
-
-Incluye:
-
-- API REST,
-- ingesta de documentos PDF/Markdown,
-- chunking,
-- embeddings,
-- indexación vectorial,
-- retrieval semántico,
-- generación de respuestas con fuentes,
-- autenticación básica por API key,
-- trazabilidad mínima.
-
-No incluye en esta fase:
-
-- UI web final,
-- fine-tuning,
-- multi-tenant avanzado,
-- IAM enterprise,
-- despliegue Kubernetes.
-
-## Stack tecnológico
-
-- Python
-- FastAPI
-- LlamaIndex
-- PostgreSQL
-- pgvector
-- OpenAI API
-- Docker Compose
-- Redis (opcional)
-
-## Entregable 2
-
-Este repositorio contiene el segundo entregable del capítulo 2 del proyecto, centrado en el diseño arquitectónico del sistema.
-
-## Navegación rápida
-
-- [Arquitectura](docs/entregable-02/arquitectura.md)
-- [ADR-001](docs/adr/ADR-001-llm-base.md)
-- [ADR-002](docs/adr/ADR-002-vector-store.md)
-- [ADR-003](docs/adr/ADR-003-rag-orchestration.md)
-- [OpenAPI](docs/api/openapi.yaml)
-- [System Prompt](docs/entregable-02/system-prompt.md)
-- [Amenazas STRIDE](docs/entregable-02/amenazas-stride.md)
-
-## Autor
-
-Hector Fidel Cruz Rodriguez
+## Limitaciones conocidas
+- El rate limiting actual es en memoria (no distribuido).
+- El reporte de RAGAS usa métricas proxy (no `ragas` oficial todavía).
+- El corpus cloud de demo es pequeño (sample docs), por lo que la calidad depende de ese alcance.

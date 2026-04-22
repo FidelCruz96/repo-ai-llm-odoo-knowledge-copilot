@@ -1,0 +1,60 @@
+name: Deploy Cloud Run
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+env:
+  GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+  GCP_REGION: ${{ vars.GCP_REGION }}
+  SERVICE_NAME: ${{ vars.SERVICE_NAME }}
+  AR_REPO: ${{ vars.AR_REPO }}
+  IMAGE_NAME: odoo-knowledge-copilot
+  RUN_SA_EMAIL: ${{ vars.RUN_SA_EMAIL }}
+  INSTANCE_CONNECTION_NAME: ${{ vars.INSTANCE_CONNECTION_NAME }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Run
+        env:
+          MODEL_NAME: gpt-4o-mini
+          EMBEDDING_MODEL: text-embedding-3-large
+          TOP_K: "8"
+          SIMILARITY_THRESHOLD: "0.55"
+          RATE_LIMIT_PER_MINUTE: "300"
+          REQUEST_TIMEOUT_S: "10"
+          CHUNK_SIZE: "800"
+          CHUNK_OVERLAP: "100"
+          EMBEDDING_DIMENSIONS: "3072"
+          REDIS_URL: ""
+          DEPLOY_SECRETS: OPENAI_API_KEY=OPENAI_API_KEY:latest,API_KEY=API_KEY:latest,DATABASE_URL=DATABASE_URL:latest
+        run: |
+          ./scripts/deploy_cloud_run.sh
+
+      - name: Health check
+        run: |
+          SERVICE_URL="$(gcloud run services describe "${SERVICE_NAME}" --project "${GCP_PROJECT_ID}" --region "${GCP_REGION}" --format='value(status.url)')"
+          echo "SERVICE_URL=${SERVICE_URL}" >> $GITHUB_ENV
+          curl -fsS "${SERVICE_URL}/v1/health"
+
+      - name: Show service url
+        run: echo "Deployed URL: ${SERVICE_URL}"

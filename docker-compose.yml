@@ -1,17 +1,50 @@
-version: '3.9'
 services:
   api:
     build: .
     container_name: odoo-knowledge-copilot-api
     env_file:
-      - .env.example
+      - .env
     ports:
       - "8000:8000"
     depends_on:
-      - qdrant
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/v1/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
 
-  qdrant:
-    image: qdrant/qdrant:latest
-    container_name: odoo-knowledge-copilot-qdrant
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: odoo-knowledge-copilot-postgres
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: odoo_knowledge
     ports:
-      - "6333:6333"
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo -d odoo_knowledge"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: odoo-knowledge-copilot-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
