@@ -29,7 +29,9 @@ jobs:
           PYTHONPATH=. mypy --explicit-package-bases app --ignore-missing-imports
 
       - name: Unit and integration tests
-        run: PYTHONPATH=. pytest --cov=app --cov-report=term-missing --cov-report=xml
+        run: |
+          mkdir -p reports
+          PYTHONPATH=. pytest --cov=app --cov-report=term-missing --cov-report=xml:reports/coverage.xml
 
       - name: Bandit scan
         run: |
@@ -51,4 +53,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-xml
-          path: coverage.xml
+          path: reports/coverage.xml

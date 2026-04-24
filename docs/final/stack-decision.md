@@ -7,6 +7,7 @@
 
 ## Stack definitivo
 - Backend: FastAPI + Uvicorn (Python 3.12 actual del repo).
+- Orquestación RAG: pipeline propio en servicios Python.
 - LLM: OpenAI `gpt-4o-mini`.
 - Embeddings: OpenAI `text-embedding-3-large`.
 - Vector Store: PostgreSQL + pgvector.

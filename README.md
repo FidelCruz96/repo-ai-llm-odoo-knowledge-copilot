@@ -3,7 +3,7 @@
 API RAG para consultas de documentación funcional y técnica de Odoo.
 
 ## Objetivo
-- Ingerir documentos (`PDF`, `MD`, `TXT`).
+- Ingerir documentos `PDF`, `MD` y `TXT`.
 - Indexarlos en PostgreSQL + pgvector.
 - Responder preguntas con fuentes citadas.
 - Medir latencia y trazabilidad mínima.
@@ -14,19 +14,20 @@ API RAG para consultas de documentación funcional y técnica de Odoo.
 - `POST /v1/query`
 
 ## Arquitectura resumida
-- FastAPI (`app/`)
-- Embeddings + LLM: OpenAI (`text-embedding-3-large`, `gpt-4o-mini`)
-- Vector Store: PostgreSQL + pgvector
-- Redis opcional para soporte operativo
-- Docker Compose para entorno local
+- Backend: FastAPI en `app/`
+- Pipeline RAG: servicios propios en Python (`embedding`, `vector`, `rag`, `llm`, `ingest`)
+- LLM y embeddings: OpenAI (`gpt-4o-mini`, `text-embedding-3-large`)
+- Vector store: PostgreSQL + pgvector
+- Infra local: Docker Compose
+- Deploy cloud: Cloud Run + Cloud SQL
 
 ## Requisitos
 - Python 3.12
 - Docker + Docker Compose
-- (Opcional) `k6`, `bandit`, `pip-audit`, `gitleaks`, `ruff`, `mypy`
+- Dependencias opcionales para validaciones: `k6`, `bandit`, `pip-audit`, `gitleaks`, `ruff`, `mypy`
 
 ## Variables de entorno
-Base en [`.env.example`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/.env.example):
+Base en [`.env.example`](.env.example):
 - `OPENAI_API_KEY`
 - `API_KEY`
 - `DATABASE_URL`
@@ -38,11 +39,11 @@ Base en [`.env.example`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-c
 - `RATE_LIMIT_PER_MINUTE`
 - `MAX_UPLOAD_SIZE_MB`
 
-## Ejecución local
-1. `make setup`
-2. `cp .env.example .env` y ajustar valores reales.
-3. `make up`
-4. Validar salud: `make health`
+## Ejecucion local
+1. `make install`
+2. Ajustar `.env` si necesitas valores distintos a `.env.example`
+3. `make dev`
+4. `make health`
 
 ## Ingesta de documentos
 - Cargar todos los sample docs:
@@ -58,45 +59,44 @@ curl -s -X POST http://localhost:8000/v1/query \
   -d '{"query":"¿Qué es un picking en Odoo?","stream":false}'
 ```
 
-## Tests y cobertura
+## Resultado actual
+- Suite automatizada: `38 passed`
+- Cobertura total: `84%`
+- URL cloud validada: `https://odoo-knowledge-copilot-p4rstgvtfa-uc.a.run.app`
+- Latencia local base: `p95=3005.60 ms` con `10` VUs durante `60s`
+- Stress test: `50` VUs en Cloud Run con `89.40%` de error; se documenta como límite operativo, no como benchmark normal
+
+## Comandos principales
 - `make test`
 - `make coverage`
+- `make ragas`
+- `make load-test`
+- `make security`
+- `make check-files`
+- `make pre-delivery`
 
-Resultado actual:
-- `35 passed`
-- cobertura total `79%`
+## Artefactos para evaluacion
+- Arquitectura: [`docs/architecture/`](docs/architecture/)
+- ADRs: [`docs/adr/`](docs/adr/)
+- OpenAPI: [`docs/api/openapi.yaml`](docs/api/openapi.yaml)
+- Documento maestro final: [`docs/final/AI_LLM_Project_Template_Filled.md`](docs/final/AI_LLM_Project_Template_Filled.md)
+- Cobertura: [`reports/coverage.xml`](reports/coverage.xml)
+- Reporte RAGAS-style: [`reports/ragas_report.json`](reports/ragas_report.json)
+- Notebook de evaluacion: [`notebooks/evaluation.ipynb`](notebooks/evaluation.ipynb)
+- Dataset de evaluacion: [`notebooks/eval_dataset.json`](notebooks/eval_dataset.json)
+- Checklist estructural: [`REQUIRED_FILES.md`](REQUIRED_FILES.md)
 
-## Evaluación y performance
-- RAGAS-style proxy:
-  - `make ragas`
-  - salida: `reports/ragas_report.json`
-- Load test k6:
-  - `make load-test`
-  - salida: `reports/load_test_report.json`
-
-## Seguridad
-- Escaneo consolidado:
-  - `make security`
-  - salida: `reports/security_scan.json`
-
-## CI/CD
-- CI: [`.github/workflows/ci.yml`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/.github/workflows/ci.yml)
-- Deploy: [`.github/workflows/deploy.yml`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/.github/workflows/deploy.yml)
-
-## Deploy cloud
-- Script manual: [`scripts/deploy_cloud_run.sh`](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/scripts/deploy_cloud_run.sh)
-- URL pública: `https://odoo-knowledge-copilot-376400137896.us-central1.run.app`
-
-## Documentación final
-- [stack-decision.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/stack-decision.md)
-- [implementation.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/implementation.md)
-- [testing.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/testing.md)
-- [deployment.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/deployment.md)
-- [security.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/security.md)
-- [costs.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/costs.md)
-- [results.md](/home/fidelcruz/Documentos/repo-ai-llm-odoo-knowledge-copilot/docs/final/results.md)
+## Documentacion final complementaria
+- [`docs/final/stack-decision.md`](docs/final/stack-decision.md)
+- [`docs/final/implementation.md`](docs/final/implementation.md)
+- [`docs/final/testing.md`](docs/final/testing.md)
+- [`docs/final/deployment.md`](docs/final/deployment.md)
+- [`docs/final/security.md`](docs/final/security.md)
+- [`docs/final/costs.md`](docs/final/costs.md)
+- [`docs/final/results.md`](docs/final/results.md)
 
 ## Limitaciones conocidas
-- El rate limiting actual es en memoria (no distribuido).
-- El reporte de RAGAS usa métricas proxy (no `ragas` oficial todavía).
-- El corpus cloud de demo es pequeño (sample docs), por lo que la calidad depende de ese alcance.
+- El rate limiting actual es en memoria y no distribuido.
+- El reporte de RAGAS usa métricas proxy, no la librería oficial `ragas`.
+- El corpus de demostración es pequeño y curado; la calidad depende de ese alcance.
+- El pipeline actual es suficiente para MVP, pero todavía no está optimizado para alta concurrencia.

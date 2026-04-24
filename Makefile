@@ -2,11 +2,16 @@ PYTHON ?= python3
 VENV_PYTHON ?= .venv/bin/python
 DOCKER_COMPOSE ?= docker compose
 
-.PHONY: setup build up down ingest seed reseed test coverage ragas load-test health lint security deploy
+.PHONY: install dev setup build up down ingest seed reseed test coverage ragas load-test health lint security check-files pre-delivery deploy
+
+install: setup
+
+dev: up
 
 setup:
 	$(PYTHON) -m venv .venv
 	$(VENV_PYTHON) -m pip install -r requirements.txt
+	$(VENV_PYTHON) -m pip install ruff mypy bandit pip-audit
 	@if [ ! -f .env ]; then \
 		cp .env.example .env; \
 		echo "[INFO] Archivo .env creado desde .env.example"; \
@@ -36,10 +41,11 @@ reseed:
 	$(VENV_PYTHON) scripts/seed_sample_docs.py
 
 test:
-	$(VENV_PYTHON) -m pytest -q
+	PYTHONPATH=. $(VENV_PYTHON) -m pytest -q
 
 coverage:
-	$(VENV_PYTHON) -m pytest --cov=app --cov-report=term-missing --cov-report=xml
+	@mkdir -p reports
+	PYTHONPATH=. $(VENV_PYTHON) -m pytest --cov=app --cov-report=term-missing --cov-report=xml:reports/coverage.xml
 
 ragas:
 	$(VENV_PYTHON) scripts/ragas_eval.py
@@ -58,19 +64,17 @@ health:
 	@curl -fsS http://localhost:8000/v1/health || (echo "[ERROR] /v1/health no disponible en localhost:8000" && exit 1)
 
 lint:
-	@if ! command -v ruff >/dev/null 2>&1; then \
-		echo "[ERROR] ruff no instalado. Ejecuta: pip install ruff"; \
-		exit 1; \
-	fi
-	@if ! command -v mypy >/dev/null 2>&1; then \
-		echo "[ERROR] mypy no instalado. Ejecuta: pip install mypy"; \
-		exit 1; \
-	fi
-	ruff check app tests
-	mypy app
+	$(VENV_PYTHON) -m ruff check app tests
+	$(VENV_PYTHON) -m mypy app
 
 security:
 	$(VENV_PYTHON) scripts/security_scan.py
+
+check-files:
+	$(VENV_PYTHON) scripts/check_files.py
+
+pre-delivery: check-files test coverage security
+	@echo "✓ Proyecto listo para entrega final"
 
 deploy:
 	./scripts/deploy_cloud_run.sh

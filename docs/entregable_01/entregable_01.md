@@ -72,7 +72,7 @@ El proyecto será considerado exitoso si permite ingerir documentación seleccio
 
 | IN SCOPE | OUT OF SCOPE |
 |---|---|
-| API REST con endpoints `/api/v1/query`, `/api/v1/ingest` y `/api/v1/health` | Escritura automática dentro de Odoo |
+| API REST con endpoints `/v1/query`, `/v1/ingest` y `/v1/health` | Escritura automática dentro de Odoo |
 | Ingesta de documentos PDF y/o Markdown | Creación o aprobación de transacciones ERP |
 | Chunking, embeddings e indexación en vector store | Fine-tuning del modelo base |
 | Búsqueda semántica y recuperación de contexto | Arquitectura multiagente |
@@ -92,7 +92,7 @@ El proyecto será considerado exitoso si permite ingerir documentación seleccio
 | RF-003 | El sistema debe recuperar fragmentos relevantes antes de generar la respuesta final. | Ante una consulta, el sistema utiliza al menos top-k fragmentos recuperados del índice semántico. |
 | RF-004 | El sistema debe generar respuestas contextualizadas usando un modelo LLM. | La respuesta entregada se basa en el contexto recuperado y es coherente con la pregunta formulada. |
 | RF-005 | El sistema debe incluir referencias a las fuentes utilizadas. | Cada respuesta exitosa contiene al menos una referencia documental visible o metadato de origen. |
-| RF-006 | El sistema debe exponer un endpoint de salud del servicio. | El endpoint `/api/v1/health` responde con estado HTTP 200 y estado general del sistema. |
+| RF-006 | El sistema debe exponer un endpoint de salud del servicio. | El endpoint `/v1/health` responde con estado HTTP 200 y estado general del sistema. |
 | RF-007 | El sistema debe exigir autenticación en los endpoints protegidos. | Solicitudes sin API key válida a `/query` o `/ingest` retornan HTTP 401. |
 | RF-008 | El sistema debe manejar errores de validación, autenticación e internos con códigos HTTP adecuados. | Entradas inválidas devuelven códigos 4xx y fallos internos devuelven 5xx controlado. |
 | RF-009 | El sistema debe registrar eventos básicos de ejecución por solicitud. | Cada request genera logs con timestamp, endpoint, estado y latencia. |

@@ -58,7 +58,7 @@ def scan_pip_audit() -> dict[str, Any]:
 
 def scan_gitleaks() -> dict[str, Any]:
     if shutil.which("gitleaks") is None:
-        return {"tool": "gitleaks", "status": "missing"}
+        return {"tool": "gitleaks", "status": "warning", "message": "gitleaks is not installed; skipping local secret scan"}
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_file:
         report_path = Path(temp_file.name)

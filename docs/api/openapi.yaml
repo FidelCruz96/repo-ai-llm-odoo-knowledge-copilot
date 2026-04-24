@@ -5,18 +5,32 @@ info:
   description: API REST para consultas RAG sobre documentación funcional y técnica de Odoo.
 
 servers:
-  - url: https://api.odoo-knowledge-copilot.local
+  - url: http://localhost:8000
+  - url: https://odoo-knowledge-copilot-p4rstgvtfa-uc.a.run.app
 
 paths:
   /v1/health:
     get:
+      tags: [health]
       summary: Health check del sistema
       responses:
         "200":
           description: Servicio operativo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: healthy
+                version: "1.0.0"
+                checks:
+                  vector_store: ok
+                  llm_api: ok
+                  cache: not_configured
 
   /v1/query:
     post:
+      tags: [query]
       summary: Consulta principal al sistema RAG
       security:
         - ApiKeyAuth: []
@@ -27,12 +41,11 @@ paths:
             schema:
               $ref: "#/components/schemas/QueryRequest"
             example:
-              query: "¿Cómo se configura la aprobación de órdenes de compra en Odoo 18?"
+              query: "¿Cómo se configura la aprobación de órdenes de compra en Odoo?"
               session_id: "9c6e5b3f-f7c9-4f45-b8cd-0fe95da45f80"
               filters:
-                doc_type: "manual"
                 module: "purchase"
-                version: "18"
+                doc_id: "odoo_purchase_approvals"
               stream: false
       responses:
         "200":
@@ -42,15 +55,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/QueryResponse"
               example:
-                answer: "En Odoo 18 la aprobación de órdenes de compra se configura desde el módulo Purchase..."
+                answer: "En Odoo la aprobación de órdenes de compra se configura desde el módulo Purchase."
                 sources:
-                  - doc_id: "DOC-014"
-                    doc_name: "manual_purchase_odoo18.pdf"
+                  - doc_id: "odoo_purchase_approvals"
+                    doc_name: "odoo_purchase_approvals.md"
                     page: 12
                     score: 0.86
-                    chunk_id: "DOC-014-p12-c03"
                 tokens_used: 1284
-                latency_ms: 1480
+                latency_ms: 1480.22
                 trace_id: "ce58b52d-60e8-4581-b5f7-0f51ae0ea1cb"
         "400":
           description: Request inválido
@@ -65,56 +77,43 @@ paths:
 
   /v1/ingest:
     post:
+      tags: [ingest]
       summary: Ingesta documental
-      security:
-        - ApiKeyAuth: []
-      responses:
-        "200":
-          description: Documento procesado
-
-  /v1/feedback:
-    post:
-      summary: Registro de feedback del usuario
       security:
         - ApiKeyAuth: []
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
-              required: [trace_id, score]
+              required: [files]
               properties:
-                trace_id:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                module:
                   type: string
-                  format: uuid
-                score:
-                  type: integer
-                  minimum: 1
-                  maximum: 5
-                comment:
-                  type: string
-      responses:
-        "201":
-          description: Feedback registrado
-
-  /v1/traces/{trace_id}:
-    get:
-      summary: Consultar trazabilidad de una solicitud
-      security:
-        - ApiKeyAuth: []
-      parameters:
-        - in: path
-          name: trace_id
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         "200":
-          description: Trazabilidad encontrada
-        "404":
-          description: Trace no encontrado
+          description: Documento procesado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IngestResponse"
+              example:
+                ingested:
+                  - file: "manual.txt"
+                    chunks: 4
+                    status: ok
+        "400":
+          description: Archivo inválido
+        "401":
+          description: API key inválida o ausente
+        "429":
+          description: Rate limit excedido
 
 components:
   securitySchemes:
@@ -131,20 +130,14 @@ components:
       properties:
         query:
           type: string
+          minLength: 1
           maxLength: 8000
         session_id:
           type: string
-          format: uuid
         filters:
           type: object
-          properties:
-            doc_type:
-              type: string
-              enum: [manual, procedimiento, ticket, configuracion, tecnico]
-            module:
-              type: string
-            version:
-              type: string
+          additionalProperties: true
+          nullable: true
         stream:
           type: boolean
           default: false
@@ -158,10 +151,10 @@ components:
           type: string
         page:
           type: integer
+          nullable: true
         score:
           type: number
-        chunk_id:
-          type: string
+          format: float
 
     QueryResponse:
       type: object
@@ -174,8 +167,38 @@ components:
             $ref: "#/components/schemas/SourceItem"
         tokens_used:
           type: integer
+          nullable: true
         latency_ms:
-          type: integer
+          type: number
         trace_id:
           type: string
-          format: uuid
+
+    IngestedDocument:
+      type: object
+      properties:
+        file:
+          type: string
+        chunks:
+          type: integer
+        status:
+          type: string
+
+    IngestResponse:
+      type: object
+      properties:
+        ingested:
+          type: array
+          items:
+            $ref: "#/components/schemas/IngestedDocument"
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        version:
+          type: string
+        checks:
+          type: object
+          additionalProperties:
+            type: string

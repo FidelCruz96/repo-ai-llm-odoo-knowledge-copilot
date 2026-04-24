@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-21T23:35:38.547009+00:00",
+  "generated_at": "2026-04-24T03:20:14.122676+00:00",
   "checks": [
     {
       "tool": "bandit",
@@ -7,7 +7,7 @@
       "exit_code": 0,
       "result": {
         "errors": [],
-        "generated_at": "2026-04-21T23:35:35Z",
+        "generated_at": "2026-04-24T03:20:12Z",
         "metrics": {
           "_totals": {
             "CONFIDENCE.HIGH": 0,
@@ -19,6 +19,32 @@
             "SEVERITY.MEDIUM": 0,
             "SEVERITY.UNDEFINED": 0,
             "loc": 759,
+            "nosec": 0,
+            "skipped_tests": 0
+          },
+          "app/__init__.py": {
+            "CONFIDENCE.HIGH": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "SEVERITY.HIGH": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "loc": 0,
+            "nosec": 0,
+            "skipped_tests": 0
+          },
+          "app/api/__init__.py": {
+            "CONFIDENCE.HIGH": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "SEVERITY.HIGH": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "loc": 0,
             "nosec": 0,
             "skipped_tests": 0
           },
@@ -58,6 +84,19 @@
             "SEVERITY.MEDIUM": 0,
             "SEVERITY.UNDEFINED": 0,
             "loc": 16,
+            "nosec": 0,
+            "skipped_tests": 0
+          },
+          "app/core/__init__.py": {
+            "CONFIDENCE.HIGH": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "SEVERITY.HIGH": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "loc": 0,
             "nosec": 0,
             "skipped_tests": 0
           },
@@ -126,6 +165,19 @@
             "nosec": 0,
             "skipped_tests": 0
           },
+          "app/models/__init__.py": {
+            "CONFIDENCE.HIGH": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "SEVERITY.HIGH": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "loc": 0,
+            "nosec": 0,
+            "skipped_tests": 0
+          },
           "app/models/db_models.py": {
             "CONFIDENCE.HIGH": 0,
             "CONFIDENCE.LOW": 0,
@@ -149,6 +201,19 @@
             "SEVERITY.MEDIUM": 0,
             "SEVERITY.UNDEFINED": 0,
             "loc": 28,
+            "nosec": 0,
+            "skipped_tests": 0
+          },
+          "app/services/__init__.py": {
+            "CONFIDENCE.HIGH": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "SEVERITY.HIGH": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "loc": 0,
             "nosec": 0,
             "skipped_tests": 0
           },
@@ -230,6 +295,19 @@
             "nosec": 0,
             "skipped_tests": 0
           },
+          "app/utils/__init__.py": {
+            "CONFIDENCE.HIGH": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "SEVERITY.HIGH": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "loc": 0,
+            "nosec": 0,
+            "skipped_tests": 0
+          },
           "app/utils/chunking.py": {
             "CONFIDENCE.HIGH": 0,
             "CONFIDENCE.LOW": 0,
@@ -289,159 +367,10 @@
     },
     {
       "tool": "pip-audit",
-      "status": "ok",
-      "exit_code": 0,
-      "result": {
-        "dependencies": [
-          {
-            "name": "boolean-py",
-            "version": "5.0",
-            "vulns": []
-          },
-          {
-            "name": "cachecontrol",
-            "version": "0.14.4",
-            "vulns": []
-          },
-          {
-            "name": "certifi",
-            "version": "2026.2.25",
-            "vulns": []
-          },
-          {
-            "name": "charset-normalizer",
-            "version": "3.4.7",
-            "vulns": []
-          },
-          {
-            "name": "cyclonedx-python-lib",
-            "version": "11.7.0",
-            "vulns": []
-          },
-          {
-            "name": "defusedxml",
-            "version": "0.7.1",
-            "vulns": []
-          },
-          {
-            "name": "filelock",
-            "version": "3.29.0",
-            "vulns": []
-          },
-          {
-            "name": "idna",
-            "version": "3.12",
-            "vulns": []
-          },
-          {
-            "name": "license-expression",
-            "version": "30.4.4",
-            "vulns": []
-          },
-          {
-            "name": "markdown-it-py",
-            "version": "4.0.0",
-            "vulns": []
-          },
-          {
-            "name": "mdurl",
-            "version": "0.1.2",
-            "vulns": []
-          },
-          {
-            "name": "msgpack",
-            "version": "1.1.2",
-            "vulns": []
-          },
-          {
-            "name": "packageurl-python",
-            "version": "0.17.6",
-            "vulns": []
-          },
-          {
-            "name": "packaging",
-            "version": "26.1",
-            "vulns": []
-          },
-          {
-            "name": "pip",
-            "version": "26.0.1",
-            "vulns": []
-          },
-          {
-            "name": "pip-api",
-            "version": "0.0.34",
-            "vulns": []
-          },
-          {
-            "name": "pip-audit",
-            "version": "2.10.0",
-            "vulns": []
-          },
-          {
-            "name": "pip-requirements-parser",
-            "version": "32.0.1",
-            "vulns": []
-          },
-          {
-            "name": "platformdirs",
-            "version": "4.9.6",
-            "vulns": []
-          },
-          {
-            "name": "py-serializable",
-            "version": "2.1.0",
-            "vulns": []
-          },
-          {
-            "name": "pygments",
-            "version": "2.20.0",
-            "vulns": []
-          },
-          {
-            "name": "pyparsing",
-            "version": "3.3.2",
-            "vulns": []
-          },
-          {
-            "name": "requests",
-            "version": "2.33.1",
-            "vulns": []
-          },
-          {
-            "name": "rich",
-            "version": "15.0.0",
-            "vulns": []
-          },
-          {
-            "name": "sortedcontainers",
-            "version": "2.4.0",
-            "vulns": []
-          },
-          {
-            "name": "tomli",
-            "version": "2.4.1",
-            "vulns": []
-          },
-          {
-            "name": "tomli-w",
-            "version": "1.2.0",
-            "vulns": []
-          },
-          {
-            "name": "typing-extensions",
-            "version": "4.15.0",
-            "vulns": []
-          },
-          {
-            "name": "urllib3",
-            "version": "2.6.3",
-            "vulns": []
-          }
-        ],
-        "fixes": []
-      },
-      "stderr": "No known vulnerabilities found\n"
+      "status": "unavailable",
+      "exit_code": 1,
+      "result": [],
+      "stderr": "WARNING: The directory '/home/fidelcruz/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\nTraceback (most recent call last):\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connection.py\", line 204, in _new_conn\n    sock = connection.create_connection(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/util/connection.py\", line 60, in create_connection\n    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/socket.py\", line 963, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsocket.gaierror: [Errno -2] Name or service not known\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connectionpool.py\", line 787, in urlopen\n    response = self._make_request(\n               ^^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connectionpool.py\", line 488, in _make_request\n    raise new_e\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connectionpool.py\", line 464, in _make_request\n    self._validate_conn(conn)\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connectionpool.py\", line 1093, in _validate_conn\n    conn.connect()\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connection.py\", line 759, in connect\n    self.sock = sock = self._new_conn()\n                       ^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connection.py\", line 211, in _new_conn\n    raise NameResolutionError(self.host, self, e) from e\nurllib3.exceptions.NameResolutionError: HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -2] Name or service not known)\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/requests/adapters.py\", line 645, in send\n    resp = conn.urlopen(\n           ^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/connectionpool.py\", line 841, in urlopen\n    retries = retries.increment(\n              ^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/urllib3/util/retry.py\", line 535, in increment\n    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nurllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='pypi.org', port=443): Max retries exceeded with url: /pypi/boolean-py/5.0/json (Caused by NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -2] Name or service not known)\"))\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/fidelcruz/.local/bin/pip-audit\", line 6, in <module>\n    sys.exit(audit())\n             ^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/pip_audit/_cli.py\", line 554, in audit\n    for spec, vulns in auditor.audit(source):\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/pip_audit/_audit.py\", line 68, in audit\n    for dep, vulns in self._service.query_all(specs):\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/pip_audit/_service/interface.py\", line 180, in query_all\n    yield self.query(spec)\n          ^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/pip_audit/_service/pypi.py\", line 64, in query\n    response: requests.Response = self.session.get(url=url, timeout=self.timeout)\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/requests/sessions.py\", line 605, in get\n    return self.request(\"GET\", url, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/requests/sessions.py\", line 592, in request\n    resp = self.send(prep, **send_kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/requests/sessions.py\", line 706, in send\n    r = adapter.send(request, **kwargs)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/cachecontrol/adapter.py\", line 76, in send\n    resp = super().send(request, stream, timeout, verify, cert, proxies)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fidelcruz/.local/share/pipx/venvs/pip-audit/lib/python3.12/site-packages/requests/adapters.py\", line 678, in send\n    raise ConnectionError(e, request=request)\nrequests.exceptions.ConnectionError: HTTPSConnectionPool(host='pypi.org', port=443): Max retries exceeded with url: /pypi/boolean-py/5.0/json (Caused by NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -2] Name or service not known)\"))\n"
     },
     {
       "tool": "gitleaks",
@@ -449,7 +378,7 @@
       "exit_code": 0,
       "result": [],
       "stdout": "",
-      "stderr": "6:35PM INF 5 commits scanned.\n6:35PM INF scanned ~59946 bytes (59.95 KB) in 214ms\n6:35PM INF no leaks found\n"
+      "stderr": "10:20PM INF 9 commits scanned.\n10:20PM INF scanned ~220520 bytes (220.52 KB) in 277ms\n10:20PM INF no leaks found\n"
     }
   ]
 }
