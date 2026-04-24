@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant C as Cliente
+    participant API as FastAPI API
+    participant SEC as Seguridad
+    participant RAG as Servicio RAG
+    participant VDB as PostgreSQL + pgvector
+    participant LLM as OpenAI API
+    participant OBS as Logs/Métricas
+
+    C->>API: POST /v1/query
+    API->>SEC: Validar API key y rate limit
+    SEC-->>API: OK / Error
+    API->>RAG: Procesar consulta
+    RAG->>VDB: Embedding + similarity search
+    VDB-->>RAG: chunks + scores + metadata
+    RAG->>LLM: prompt + contexto
+    LLM-->>RAG: respuesta generada
+    RAG->>OBS: registrar latencia, tokens, trace_id
+    RAG-->>API: answer + sources
+    API-->>C: 200 OK

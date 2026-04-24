@@ -1,0 +1,13 @@
+flowchart LR
+    U[Consultor / Desarrollador / Soporte Odoo]
+    A[Administrador Técnico]
+    S[Odoo Knowledge Copilot]
+    L[Proveedor LLM\nOpenAI API]
+    V[Vector Store\nPostgreSQL + pgvector]
+    D[Fuentes Documentales\nPDF / Markdown / Manuales / Procedimientos]
+
+    U -->|HTTPS REST| S
+    A -->|Administración / Ingesta / Monitoreo| S
+    S -->|API LLM| L
+    S -->|Búsqueda vectorial| V
+    S -->|Lectura / ingesta| D

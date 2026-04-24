@@ -1,0 +1,204 @@
+openapi: 3.1.0
+info:
+  title: Odoo Knowledge Copilot API
+  version: 1.0.0
+  description: API REST para consultas RAG sobre documentación funcional y técnica de Odoo.
+
+servers:
+  - url: http://localhost:8000
+  - url: https://odoo-knowledge-copilot-p4rstgvtfa-uc.a.run.app
+
+paths:
+  /v1/health:
+    get:
+      tags: [health]
+      summary: Health check del sistema
+      responses:
+        "200":
+          description: Servicio operativo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: healthy
+                version: "1.0.0"
+                checks:
+                  vector_store: ok
+                  llm_api: ok
+                  cache: not_configured
+
+  /v1/query:
+    post:
+      tags: [query]
+      summary: Consulta principal al sistema RAG
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryRequest"
+            example:
+              query: "¿Cómo se configura la aprobación de órdenes de compra en Odoo?"
+              session_id: "9c6e5b3f-f7c9-4f45-b8cd-0fe95da45f80"
+              filters:
+                module: "purchase"
+                doc_id: "odoo_purchase_approvals"
+              stream: false
+      responses:
+        "200":
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResponse"
+              example:
+                answer: "En Odoo la aprobación de órdenes de compra se configura desde el módulo Purchase."
+                sources:
+                  - doc_id: "odoo_purchase_approvals"
+                    doc_name: "odoo_purchase_approvals.md"
+                    page: 12
+                    score: 0.86
+                tokens_used: 1284
+                latency_ms: 1480.22
+                trace_id: "ce58b52d-60e8-4581-b5f7-0f51ae0ea1cb"
+        "400":
+          description: Request inválido
+        "401":
+          description: API key inválida o ausente
+        "422":
+          description: Error de validación
+        "429":
+          description: Rate limit excedido
+        "503":
+          description: Proveedor LLM no disponible
+
+  /v1/ingest:
+    post:
+      tags: [ingest]
+      summary: Ingesta documental
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [files]
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                module:
+                  type: string
+      responses:
+        "200":
+          description: Documento procesado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IngestResponse"
+              example:
+                ingested:
+                  - file: "manual.txt"
+                    chunks: 4
+                    status: ok
+        "400":
+          description: Archivo inválido
+        "401":
+          description: API key inválida o ausente
+        "429":
+          description: Rate limit excedido
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    QueryRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 8000
+        session_id:
+          type: string
+        filters:
+          type: object
+          additionalProperties: true
+          nullable: true
+        stream:
+          type: boolean
+          default: false
+
+    SourceItem:
+      type: object
+      properties:
+        doc_id:
+          type: string
+        doc_name:
+          type: string
+        page:
+          type: integer
+          nullable: true
+        score:
+          type: number
+          format: float
+
+    QueryResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceItem"
+        tokens_used:
+          type: integer
+          nullable: true
+        latency_ms:
+          type: number
+        trace_id:
+          type: string
+
+    IngestedDocument:
+      type: object
+      properties:
+        file:
+          type: string
+        chunks:
+          type: integer
+        status:
+          type: string
+
+    IngestResponse:
+      type: object
+      properties:
+        ingested:
+          type: array
+          items:
+            $ref: "#/components/schemas/IngestedDocument"
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        version:
+          type: string
+        checks:
+          type: object
+          additionalProperties:
+            type: string

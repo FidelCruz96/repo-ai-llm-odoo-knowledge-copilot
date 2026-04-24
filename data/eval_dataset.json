@@ -1,0 +1,304 @@
+[
+  {
+    "id": "Q001",
+    "question": "¿Qué representa un picking en Odoo?",
+    "filters": {
+      "module": "inventory"
+    },
+    "expected_doc_ids": [
+      "odoo-inventory-basics"
+    ],
+    "expected_answer_keywords": [
+      "picking",
+      "movimiento",
+      "stock",
+      "operacion"
+    ]
+  },
+  {
+    "id": "Q002",
+    "question": "¿Qué tipos de operaciones logísticas maneja inventario?",
+    "filters": {
+      "module": "inventory"
+    },
+    "expected_doc_ids": [
+      "odoo-inventory-basics"
+    ],
+    "expected_answer_keywords": [
+      "recepciones",
+      "entregas",
+      "transferencias"
+    ]
+  },
+  {
+    "id": "Q003",
+    "question": "¿Cómo se aprueba una orden de compra en Odoo?",
+    "filters": {
+      "module": "purchase"
+    },
+    "expected_doc_ids": [
+      "odoo-purchase-approvals"
+    ],
+    "expected_answer_keywords": [
+      "orden",
+      "compra",
+      "aprobacion",
+      "monto"
+    ]
+  },
+  {
+    "id": "Q004",
+    "question": "¿Qué pasa si el monto supera el umbral de aprobación?",
+    "filters": {
+      "module": "purchase"
+    },
+    "expected_doc_ids": [
+      "odoo-purchase-approvals"
+    ],
+    "expected_answer_keywords": [
+      "umbral",
+      "aprobacion",
+      "manager",
+      "doble"
+    ]
+  },
+  {
+    "id": "Q005",
+    "question": "¿Qué estados tiene una factura de cliente?",
+    "filters": {
+      "module": "account"
+    },
+    "expected_doc_ids": [
+      "odoo-invoicing-flow"
+    ],
+    "expected_answer_keywords": [
+      "borrador",
+      "publicada",
+      "pagada",
+      "cancelada"
+    ]
+  },
+  {
+    "id": "Q006",
+    "question": "¿Qué valida Odoo antes de publicar una factura?",
+    "filters": {
+      "module": "account"
+    },
+    "expected_doc_ids": [
+      "odoo-invoicing-flow"
+    ],
+    "expected_answer_keywords": [
+      "impuestos",
+      "lineas",
+      "cuenta",
+      "diario"
+    ]
+  },
+  {
+    "id": "Q007",
+    "question": "¿Qué diferencia hay entre lead y oportunidad?",
+    "filters": {
+      "module": "crm"
+    },
+    "expected_doc_ids": [
+      "odoo-crm-pipeline"
+    ],
+    "expected_answer_keywords": [
+      "lead",
+      "oportunidad",
+      "calificacion",
+      "pipeline"
+    ]
+  },
+  {
+    "id": "Q008",
+    "question": "¿Qué etapas típicas tiene un pipeline comercial?",
+    "filters": {
+      "module": "crm"
+    },
+    "expected_doc_ids": [
+      "odoo-crm-pipeline"
+    ],
+    "expected_answer_keywords": [
+      "nuevo",
+      "calificado",
+      "propuesta",
+      "ganado"
+    ]
+  },
+  {
+    "id": "Q009",
+    "question": "¿Cómo se crea un usuario nuevo en Odoo?",
+    "filters": {
+      "module": "security"
+    },
+    "expected_doc_ids": [
+      "odoo-user-admin"
+    ],
+    "expected_answer_keywords": [
+      "usuario",
+      "grupos",
+      "acceso",
+      "permisos"
+    ]
+  },
+  {
+    "id": "Q010",
+    "question": "¿Dónde se asignan los grupos de seguridad?",
+    "filters": {
+      "module": "security"
+    },
+    "expected_doc_ids": [
+      "odoo-user-admin"
+    ],
+    "expected_answer_keywords": [
+      "grupos",
+      "seguridad",
+      "usuario",
+      "acceso"
+    ]
+  },
+  {
+    "id": "Q011",
+    "question": "¿Qué es un documento no soportado para ingesta?",
+    "filters": null,
+    "expected_doc_ids": [
+      "odoo-support-faq"
+    ],
+    "expected_answer_keywords": [
+      "pdf",
+      "md",
+      "txt",
+      "soportado"
+    ]
+  },
+  {
+    "id": "Q012",
+    "question": "¿Cómo responde el sistema cuando no encuentra contexto?",
+    "filters": null,
+    "expected_doc_ids": [
+      "odoo-support-faq"
+    ],
+    "expected_answer_keywords": [
+      "contexto",
+      "precision",
+      "insuficiente"
+    ]
+  },
+  {
+    "id": "Q013",
+    "question": "¿Qué endpoint sirve para salud del servicio?",
+    "filters": null,
+    "expected_doc_ids": [
+      "odoo-support-faq"
+    ],
+    "expected_answer_keywords": [
+      "/v1/health",
+      "healthy",
+      "degraded"
+    ]
+  },
+  {
+    "id": "Q014",
+    "question": "¿Qué endpoint permite cargar documentación?",
+    "filters": null,
+    "expected_doc_ids": [
+      "odoo-support-faq"
+    ],
+    "expected_answer_keywords": [
+      "/v1/ingest",
+      "documentos",
+      "archivos"
+    ]
+  },
+  {
+    "id": "Q015",
+    "question": "¿Qué endpoint consulta el asistente RAG?",
+    "filters": null,
+    "expected_doc_ids": [
+      "odoo-support-faq"
+    ],
+    "expected_answer_keywords": [
+      "/v1/query",
+      "pregunta",
+      "sources"
+    ]
+  },
+  {
+    "id": "Q016",
+    "question": "¿Qué metadatos se guardan por chunk?",
+    "filters": null,
+    "expected_doc_ids": [
+      "odoo-support-faq"
+    ],
+    "expected_answer_keywords": [
+      "doc_id",
+      "doc_name",
+      "page",
+      "module",
+      "chunk_index"
+    ]
+  },
+  {
+    "id": "Q017",
+    "question": "¿Cuándo conviene usar una transferencia interna en inventario?",
+    "filters": {
+      "module": "inventory"
+    },
+    "expected_doc_ids": [
+      "odoo-inventory-basics"
+    ],
+    "expected_answer_keywords": [
+      "transferencias",
+      "internas",
+      "ubicaciones",
+      "stock"
+    ]
+  },
+  {
+    "id": "Q018",
+    "question": "¿Quién aprueba una orden de compra cuando supera el umbral?",
+    "filters": {
+      "module": "purchase"
+    },
+    "expected_doc_ids": [
+      "odoo-purchase-approvals"
+    ],
+    "expected_answer_keywords": [
+      "aprobacion",
+      "manager",
+      "umbral",
+      "orden"
+    ]
+  },
+  {
+    "id": "Q019",
+    "question": "¿Qué acciones suelen revisar antes de publicar una factura?",
+    "filters": {
+      "module": "account"
+    },
+    "expected_doc_ids": [
+      "odoo-invoicing-flow"
+    ],
+    "expected_answer_keywords": [
+      "impuestos",
+      "lineas",
+      "cuenta",
+      "diario"
+    ]
+  },
+  {
+    "id": "Q020",
+    "question": "¿Qué devuelve la respuesta del endpoint /v1/query además del texto?",
+    "filters": null,
+    "expected_doc_ids": [
+      "odoo-support-faq"
+    ],
+    "expected_answer_keywords": [
+      "sources",
+      "trace_id",
+      "latency_ms",
+      "tokens_used"
+    ]
+  }
+]

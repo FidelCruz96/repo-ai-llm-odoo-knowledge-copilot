@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-04-23T04:28:57.197529+00:00",
+  "dataset_path": "data/eval_dataset.json",
+  "endpoint": "http://localhost:8000/v1/query",
+  "cases_total": 20,
+  "cases_failed": 0,
+  "metrics": {
+    "faithfulness": 0.3792,
+    "answer_relevancy": 0.1663,
+    "context_recall": 0.5,
+    "context_precision": 0.5
+  },
+  "notes": [
+    "This report computes RAGAS-style proxy metrics from endpoint responses.",
+    "For strict academic RAGAS, integrate official ragas package with judge LLM."
+  ],
+  "cases": [
+    {
+      "id": "Q001",
+      "question": "¿Qué representa un picking en Odoo?",
+      "status_code": 200,
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.25,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1816.62,
+      "sources_count": 1
+    },
+    {
+      "id": "Q002",
+      "question": "¿Qué tipos de operaciones logísticas maneja inventario?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 684.77,
+      "sources_count": 0
+    },
+    {
+      "id": "Q003",
+      "question": "¿Cómo se aprueba una orden de compra en Odoo?",
+      "status_code": 200,
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.1481,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1923.92,
+      "sources_count": 1
+    },
+    {
+      "id": "Q004",
+      "question": "¿Qué pasa si el monto supera el umbral de aprobación?",
+      "status_code": 200,
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.2667,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1590.96,
+      "sources_count": 1
+    },
+    {
+      "id": "Q005",
+      "question": "¿Qué estados tiene una factura de cliente?",
+      "status_code": 200,
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.5,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1775.65,
+      "sources_count": 1
+    },
+    {
+      "id": "Q006",
+      "question": "¿Qué valida Odoo antes de publicar una factura?",
+      "status_code": 200,
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.5455,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1592.97,
+      "sources_count": 1
+    },
+    {
+      "id": "Q007",
+      "question": "¿Qué diferencia hay entre lead y oportunidad?",
+      "status_code": 200,
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.1429,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 2205.29,
+      "sources_count": 1
+    },
+    {
+      "id": "Q008",
+      "question": "¿Qué etapas típicas tiene un pipeline comercial?",
+      "status_code": 200,
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.3333,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1419.32,
+      "sources_count": 1
+    },
+    {
+      "id": "Q009",
+      "question": "¿Cómo se crea un usuario nuevo en Odoo?",
+      "status_code": 200,
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.1364,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1953.56,
+      "sources_count": 1
+    },
+    {
+      "id": "Q010",
+      "question": "¿Dónde se asignan los grupos de seguridad?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 836.79,
+      "sources_count": 0
+    },
+    {
+      "id": "Q011",
+      "question": "¿Qué es un documento no soportado para ingesta?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.1,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 644.39,
+      "sources_count": 0
+    },
+    {
+      "id": "Q012",
+      "question": "¿Cómo responde el sistema cuando no encuentra contexto?",
+      "status_code": 200,
+      "faithfulness": 0.3333,
+      "answer_relevancy": 0.0909,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 850.39,
+      "sources_count": 0
+    },
+    {
+      "id": "Q013",
+      "question": "¿Qué endpoint sirve para salud del servicio?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0833,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 615.3,
+      "sources_count": 0
+    },
+    {
+      "id": "Q014",
+      "question": "¿Qué endpoint permite cargar documentación?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 605.16,
+      "sources_count": 0
+    },
+    {
+      "id": "Q015",
+      "question": "¿Qué endpoint consulta el asistente RAG?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 631.91,
+      "sources_count": 0
+    },
+    {
+      "id": "Q016",
+      "question": "¿Qué metadatos se guardan por chunk?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 657.44,
+      "sources_count": 0
+    },
+    {
+      "id": "Q017",
+      "question": "¿Cuándo conviene usar una transferencia interna en inventario?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 605.01,
+      "sources_count": 0
+    },
+    {
+      "id": "Q018",
+      "question": "¿Quién aprueba una orden de compra cuando supera el umbral?",
+      "status_code": 200,
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.4615,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1372.95,
+      "sources_count": 1
+    },
+    {
+      "id": "Q019",
+      "question": "¿Qué acciones suelen revisar antes de publicar una factura?",
+      "status_code": 200,
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.2667,
+      "context_recall": 1.0,
+      "context_precision": 1.0,
+      "latency_ms": 1504.79,
+      "sources_count": 1
+    },
+    {
+      "id": "Q020",
+      "question": "¿Qué devuelve la respuesta del endpoint /v1/query además del texto?",
+      "status_code": 200,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "context_precision": 0.0,
+      "latency_ms": 578.2,
+      "sources_count": 0
+    }
+  ]
+}
