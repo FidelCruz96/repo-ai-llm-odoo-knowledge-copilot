@@ -57,4 +57,5 @@ jobs:
           curl -fsS "${SERVICE_URL}/v1/health"
 
       - name: Show service url
-        run: echo "Deployed URL: ${SERVICE_URL}"
+        run: |
+          echo "Deployed URL: ${SERVICE_URL}"
