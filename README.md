@@ -24,7 +24,11 @@ API RAG para consultas de documentación funcional y técnica de Odoo.
 ## Requisitos
 - Python 3.12
 - Docker + Docker Compose
-- Dependencias opcionales para validaciones: `k6`, `bandit`, `pip-audit`, `gitleaks`, `ruff`, `mypy`
+- Dependencias opcionales locales para validaciones: `k6`, `bandit`, `pip-audit`, `gitleaks`, `ruff`, `mypy`
+
+> Nota:
+> - En entorno local, `gitleaks` puede omitirse y el escaneo se reportará como warning.
+> - En CI, `gitleaks` sí forma parte del pipeline obligatorio.
 
 ## Variables de entorno
 Base en [`.env.example`](.env.example):
