@@ -104,3 +104,8 @@ curl -s -X POST http://localhost:8000/v1/query \
 - El reporte de RAGAS usa métricas proxy, no la librería oficial `ragas`.
 - El corpus de demostración es pequeño y curado; la calidad depende de ese alcance.
 - El pipeline actual es suficiente para MVP, pero todavía no está optimizado para alta concurrencia.
+
+
+## Demo final
+
+Video de presentación: [Ver demo final] https://drive.google.com/file/d/1rGfkKudLz83eJFw8Out9ACyyAVG9LdBV/view?usp=sharing
