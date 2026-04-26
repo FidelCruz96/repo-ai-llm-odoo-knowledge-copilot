@@ -43,7 +43,7 @@ def scan_pip_audit() -> dict[str, Any]:
     if shutil.which("pip-audit") is None:
         return {"tool": "pip-audit", "status": "missing"}
 
-    code, stdout, stderr = run_command(["pip-audit", "-f", "json"])
+    code, stdout, stderr = run_command(["pip-audit", "-r", "requirements.txt", "-f", "json"])
     payload = []
     if stdout.strip():
         try:

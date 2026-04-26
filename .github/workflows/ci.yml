@@ -39,7 +39,7 @@ jobs:
           bandit -r app -f json -o reports/security_scan_bandit.json
 
       - name: Pip audit
-        run: pip-audit
+        run: pip-audit -r requirements.txt
 
       - name: Gitleaks
         uses: gitleaks/gitleaks-action@v2
